@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WCMS Grade Calculator</title>
+  </head>
+  <body>
+  	<h1>WCMS Grade Calculator</h1>
+    <p>Enter your grades with new lines in between each one. Don't include extra lines.</p>
+    <table>
+      <tr>
+        <td>Homework grades:</td>
+        <td>Classwork grades:</td>
+        <td>Quiz grades:</td>
+        <td>Test grades:</td>
+      </tr>
+      <tr>
+        <td><textarea style="height: 150px; width: 120px;" id="h"></textarea></td>
+        <td><textarea style="height: 150px; width: 120px;" id="c"></textarea></td>
+        <td><textarea style="height: 150px; width: 120px;" id="q"></textarea></td>
+        <td><textarea style="height: 150px; width: 120px;" id="t"></textarea></td>
+      </tr>
+     </table>
+     <span>Extra points: </span><input id="extra" type="range" min="0" max="10" value="0"><span id="ep">0</span><br><br>
+     <button id="calc">Calculate</button>
+     <p id="res"></p>
+  </body>
+  <script>
+	let h = document.getElementById("h");
+	let c = document.getElementById("c");
+	let q = document.getElementById("q");
+	let t = document.getElementById("t");
+	let extra = document.getElementById("extra");
+	let calc = document.getElementById("calc");
+	let res = document.getElementById("res");
+    
+    function valToList(val) {
+      let vari = val.split("\n");
+      let offset = 0;
+      for (var i = 0; i < vari.length; i++) {
+        if (isNaN(Number(vari[i]))) {
+          vari.splice(i, i);
+          offset++;
+        } else {
+          if (!(i - offset >= vari.length)) {
+            vari[i - offset] = Number(vari[i - offset]);
+          }
+        }
+      }
+      if (val == 0 || val == undefined) {
+        return [100];
+      } else {
+        return vari;
+      }
+    }
+    
+    function avg(list) {
+      let aver = 0;
+      for (var i = 0; i < list.length; i++) {
+        aver += Number(list[i]);
+      }
+      return (aver / list.length);
+    }
+    
+    calc.onclick = function() {
+      let hw = avg(valToList(h.value));
+      let cw = avg(valToList(c.value));
+      let qu = avg(valToList(q.value));
+      let te = avg(valToList(t.value));
+      
+      let grade = hw * 0.05 + cw * 0.2 + qu * 0.3 + te * 0.45 + Number(extra.value);
+      res.innerHTML = grade + "<br>" + Math.round(grade * 100) / 100 + "<br>" + Math.round(grade * 10) / 10 + "<br>" + Math.round(grade)
+    }
+   
+    extra.oninput = function() {
+      document.getElementById("ep").innerHTML = extra.value;
+    }
+  </script>
+</html>
