@@ -19,10 +19,16 @@
         <td><textarea style="height: 150px; width: 120px;" id="q"></textarea></td>
         <td><textarea style="height: 150px; width: 120px;" id="t"></textarea></td>
       </tr>
-     </table>
+     </table><br>
      <span>Extra points: </span><input id="extra" type="range" min="0" max="10" value="0"><span id="ep">0</span><br><br>
      <button id="calc">Calculate</button>
      <p id="res"></p>
+     <h3>Final exams calculator</h3>
+     <span>Grade to be changed: </span><input type="number" id="fgrade" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br>
+     <span>Percent worth of final: </span><input type="number" id="fworth" placeholder="ex. 15, 20" style="width: 8.7%;"><span>%</span><br>
+     <span>Score on final: </span><input type="number" id="fscore" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br><br>
+     <button id="calc1">Calculate</button>
+     <p id="res1"></p>
   </body>
   <script>
 	let h = document.getElementById("h");
@@ -32,6 +38,11 @@
 	let extra = document.getElementById("extra");
 	let calc = document.getElementById("calc");
 	let res = document.getElementById("res");
+    let fgrade = document.getElementById("fgrade");
+    let fworth = document.getElementById("fworth");
+    let fscore = document.getElementById("fscore");
+    let calc1 = document.getElementById("calc1");
+	let res1 = document.getElementById("res1");
     
     function valToList(val) {
       let vari = val.split("\n");
@@ -73,6 +84,10 @@
    
     extra.oninput = function() {
       document.getElementById("ep").innerHTML = extra.value;
+    }
+    
+    calc1.onclick = function() {
+      res1.innerHTML = (fgrade.value * ((100 - fworth.value) / 100) + fscore.value * (fworth.value / 100)) + "%";
     }
   </script>
 </html>
