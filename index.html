@@ -46,7 +46,7 @@
     
     function valToList(val) {
       let vari = val.split("\n").filter(e => e);
-	vari.forEach((e, index) => {vari[index] = Number(eval(e))});
+	vari.forEach((e, index) => {vari[index] = e.includes("/") ? Number(eval(e)) * 100 : Number(e)});
       let offset = 0;
       for (var i = 0; i < vari.length; i++) {
         if (isNaN(Number(vari[i]))) {
