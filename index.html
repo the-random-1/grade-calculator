@@ -59,27 +59,33 @@
         }
       }
       if (val == 0 || val == undefined) {
-        return [100];
+        return -1;
       } else {
         return vari;
       }
     }
     
-    function avg(list) {
-      let aver = 0;
-      for (var i = 0; i < list.length; i++) {
-        aver += Number(list[i]);
-      }
-      return (aver / list.length);
+    function avg(list, wt) {
+	  if (typeof list = "object") {
+		let aver = 0;
+     	  for (var i = 0; i < list.length; i++) {
+     		aver += Number(list[i]);
+      	  }
+      	return [(aver / list.length), wt];
+	  } else {
+		  if (list == -1) {
+			  return [0, 0];
+		  }
+	  }
     }
     
     calc.onclick = function() {
-      let hw = avg(valToList(h.value));
-      let cw = avg(valToList(c.value));
-      let qu = avg(valToList(q.value));
-      let te = avg(valToList(t.value));
+      let hw = avg(valToList(h.value), .05);
+      let cw = avg(valToList(c.value), .2);
+      let qu = avg(valToList(q.value), .3);
+      let te = avg(valToList(t.value), .45);
       
-      let grade = hw * 0.05 + cw * 0.2 + qu * 0.3 + te * 0.45 + Number(extra.value);
+      let grade = (hw[0] * hw[1] + cw[0] * cw[1] + qu[0] * qu[1] + te[0] * te[1]) / (hw[1] + cw[1] + qu[1] + te[1]) + Number(extra.value);
       res.innerHTML = grade + "<br>" + Math.round(grade * 100) / 100 + "<br>" + Math.round(grade * 10) / 10 + "<br>" + Math.round(grade)
     }
    
