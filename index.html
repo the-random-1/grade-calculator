@@ -1,100 +1,116 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Collierville Schools Grade Calculator</title>
-  </head>
-  <body>
-  	<h1>Collierville Schools Grade Calculator</h1>
-    <p>Enter your grades with new lines in between each one. Don't include extra lines.</p>
-    <table>
-      <tr>
-        <td>Homework grades:</td>
-        <td>Classwork grades:</td>
-        <td>Quiz grades:</td>
-        <td>Test grades:</td>
-      </tr>
-      <tr>
-        <td><textarea style="height: 150px; width: 120px;" id="h"></textarea></td>
-        <td><textarea style="height: 150px; width: 120px;" id="c"></textarea></td>
-        <td><textarea style="height: 150px; width: 120px;" id="q"></textarea></td>
-        <td><textarea style="height: 150px; width: 120px;" id="t"></textarea></td>
-      </tr>
-     </table><br>
-     <span>Extra points: </span><input id="extra" type="range" min="0" max="10" value="0"><span id="ep">0</span><br><br>
-     <button id="calc">Calculate</button>
-     <p id="res"></p>
-     <h3>Final exams calculator</h3>
-     <span>Grade to be changed: </span><input type="number" id="fgrade" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br>
-     <span>Percent worth of final: </span><input type="number" id="fworth" placeholder="ex. 15, 20" style="width: 8.7%;"><span>%</span><br>
-     <span>Score on final: </span><input type="number" id="fscore" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br><br>
-     <button id="calc1">Calculate</button>
-     <p id="res1"></p>
-  </body>
-  <script>
-	let h = document.getElementById("h");
-	let c = document.getElementById("c");
-	let q = document.getElementById("q");
-	let t = document.getElementById("t");
-	let extra = document.getElementById("extra");
-	let calc = document.getElementById("calc");
-	let res = document.getElementById("res");
-    let fgrade = document.getElementById("fgrade");
-    let fworth = document.getElementById("fworth");
-    let fscore = document.getElementById("fscore");
-    let calc1 = document.getElementById("calc1");
-	let res1 = document.getElementById("res1");
+    <head>
+        <title>Collierville Schools Grade Calculator</title>
+    </head>
+    <body>
+        <h1>Collierville Schools Grade Calculator</h1>
+        <p>Enter your grades with new lines in between each one. Don't include extra lines.</p>
+        <table>
+            <tr>
+                <td>Homework grades (<input id="hwpercent" placeholder="5" value="5" type="number" style="width: 45px;">%):</td>
+                <td>Classwork grades (<input id="cwpercent" placeholder="20" value="20" type="number" style="width: 45px;">%):</td>
+                <td>Quiz grades (<input id="qupercent" placeholder="30" value="30" type="number" style="width: 45px;">%):</td>
+                <td>Test grades (<input id="tepercent" placeholder="45" value="45" type="number" style="width: 45px;">%):</td>
+            </tr>
+            <tr>
+                <td><textarea style="height: 150px; width: 200px;" id="h"></textarea></td>
+                <td><textarea style="height: 150px; width: 200px;" id="c"></textarea></td>
+                <td><textarea style="height: 150px; width: 200px;" id="q"></textarea></td>
+                <td><textarea style="height: 150px; width: 200px;" id="t"></textarea></td>
+            </tr>
+            <tr>
+                <td style="width: 200px;" id="hp"></td>
+                <td style="width: 200px;" id="cp"></td>
+                <td style="width: 200px;" id="qp"></td>
+                <td style="width: 200px;" id="tp"></td>
+            </tr>
+        </table><br>
+        <span>Extra points: </span><input id="extra" type="range" min="0" max="10" value="0"><span id="ep">0</span><br><br>
+        <button id="calc">Calculate</button>
+        <p id="res"></p>
+        <h3>Final exams calculator</h3>
+        <span>Grade to be changed: </span><input type="number" id="fgrade" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br>
+        <span>Percent worth of final: </span><input type="number" id="fworth" placeholder="ex. 15, 20" style="width: 8.7%;"><span>%</span><br>
+        <span>Score on final: </span><input type="number" id="fscore" placeholder="ex. 95, 87" style="width: 8.7%;"><span>%</span><br><br>
+        <button id="calc1">Calculate</button>
+        <p id="res1"></p>
+    </body>
+    <script>
+        let h = document.getElementById("h");
+        let c = document.getElementById("c");
+        let q = document.getElementById("q");
+        let t = document.getElementById("t");
+        let hp = document.getElementById("hp");
+        let cp = document.getElementById("cp");
+        let qp = document.getElementById("qp");
+        let tp = document.getElementById("tp");
+        let extra = document.getElementById("extra");
+        let calc = document.getElementById("calc");
+        let res = document.getElementById("res");
+        let fgrade = document.getElementById("fgrade");
+        let fworth = document.getElementById("fworth");
+        let fscore = document.getElementById("fscore");
+        let calc1 = document.getElementById("calc1");
+        let res1 = document.getElementById("res1");
     
-    function valToList(val) {
-      let vari = val.split("\n").filter(e => e);
-	vari.forEach((e, index) => {vari[index] = e.includes("/") ? Number(eval(e)) * 100 : Number(e)});
-      let offset = 0;
-      for (var i = 0; i < vari.length; i++) {
-        if (isNaN(Number(vari[i]))) {
-          vari.splice(i, i);
-          offset++;
-        } else {
-          if (!(i - offset >= vari.length)) {
-            vari[i - offset] = Number(vari[i - offset]);
-          }
+        function valToList(val) {
+            let vari = val.split("\n").filter(e => e);
+            vari.forEach((e, index) => {vari[index] = e.includes("/") ? Number(eval(e)) * 100 : Number(e)});
+            let offset = 0;
+            for (var i = 0; i < vari.length; i++) {
+                if (isNaN(Number(vari[i]))) {
+                    vari.splice(i, i);
+                    offset++;
+                } else {
+                    if (!(i - offset >= vari.length)) {
+                        vari[i - offset] = Number(vari[i - offset]);
+                    }
+                }
+            }
+            if (val == 0 || val == undefined) {
+                return -1;
+            } else {
+                return vari;
+            }
         }
-      }
-      if (val == 0 || val == undefined) {
-        return -1;
-      } else {
-        return vari;
-      }
-    }
     
-    function avg(list, wt) {
-	  if (typeof list == "object") {
-		let aver = 0;
-     	  for (var i = 0; i < list.length; i++) {
-     		aver += Number(list[i]);
-      	  }
-      	return [(aver / list.length), wt];
-	  } else {
-		  if (list == -1) {
-			  return [0, 0];
-		  }
-	  }
-    }
+        function avg(list, wt) {
+            if (typeof list == "object") {
+                let aver = 0;
+                for (var i = 0; i < list.length; i++) {
+                    aver += Number(list[i]);
+                }
+                return [(aver / list.length), wt];
+            } else {
+                if (list == -1) {
+                    return [0, 0];
+                }
+            }
+        }
     
-    calc.onclick = function() {
-      let hw = avg(valToList(h.value), .05);
-      let cw = avg(valToList(c.value), .2);
-      let qu = avg(valToList(q.value), .3);
-      let te = avg(valToList(t.value), .45);
-      
-      let grade = (hw[0] * hw[1] + cw[0] * cw[1] + qu[0] * qu[1] + te[0] * te[1]) / (hw[1] + cw[1] + qu[1] + te[1]) + Number(extra.value);
-      res.innerHTML = grade + "<br>" + Math.round(grade * 100) / 100 + "<br>" + Math.round(grade * 10) / 10 + "<br>" + Math.round(grade)
-    }
+        calc.onclick = function() {
+            let hw = avg(valToList(h.value), document.getElementById("hwpercent").value / 100);
+            let cw = avg(valToList(c.value), document.getElementById("cwpercent").value / 100);
+            let qu = avg(valToList(q.value), document.getElementById("qupercent").value / 100);
+            let te = avg(valToList(t.value), document.getElementById("tepercent").value / 100);
+
+            let totalpercent = hw[1] + cw[1] + qu[1] + te[1];
+          
+            let grade = (hw[0] * hw[1] + cw[0] * cw[1] + qu[0] * qu[1] + te[0] * te[1]) / totalpercent + Number(extra.value);
+            res.innerHTML = grade + "<br>" + Math.round(grade * 100) / 100 + "<br>" + Math.round(grade * 10) / 10 + "<br>" + Math.round(grade);
+            hp.innerHTML = (Math.round(100 * hw[0] * hw[1] / totalpercent) / 100) + "/" + (Math.round(10000 * hw[1] / totalpercent) / 100) + " points or " + hw[0] + "% from homework grades";
+            cp.innerHTML = (Math.round(100 * cw[0] * cw[1] / totalpercent) / 100) + "/" + (Math.round(10000 * cw[1] / totalpercent) / 100) + " points or " + cw[0] + "% from classwork grades";
+            qp.innerHTML = (Math.round(100 * qu[0] * qu[1] / totalpercent) / 100) + "/" + (Math.round(10000 * qu[1] / totalpercent) / 100) + " points or " + qu[0] + "% from quiz grades";
+            tp.innerHTML = (Math.round(100 * te[0] * te[1] / totalpercent) / 100) + "/" + (Math.round(10000 * te[1] / totalpercent) / 100) + " points or " + te[0] + "% from test grades";
+        }
    
-    extra.oninput = function() {
-      document.getElementById("ep").innerHTML = extra.value;
-    }
-    
-    calc1.onclick = function() {
-      res1.innerHTML = (fgrade.value * ((100 - fworth.value) / 100) + fscore.value * (fworth.value / 100)) + "%";
-    }
-  </script>
+        extra.oninput = function() {
+            document.getElementById("ep").innerHTML = extra.value;
+        }
+        
+        calc1.onclick = function() {
+            res1.innerHTML = (fgrade.value * ((100 - fworth.value) / 100) + fscore.value * (fworth.value / 100)) + "%";
+        }
+    </script>
 </html>
