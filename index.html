@@ -69,18 +69,26 @@
 
             if (cInd - hInd > 1) {
                 h.value = imptext.substring(hInd + 1, cInd).split(",").join("\n");
+            } else {
+                h.value = "";
             }
             
             if (qInd - cInd > 1) {
                 c.value = imptext.substring(cInd + 1, qInd).split(",").join("\n");
+            } else {
+                c.value = "";
             }
             
             if (tInd - qInd > 1) {
                 q.value = imptext.substring(qInd + 1, tInd).split(",").join("\n");
+            } else {
+                q.value = "";
             }
             
             if (imptext.length - tInd > 1) {
                 t.value = imptext.substring(tInd + 1, imptext.length).split(",").join("\n");
+            } else {
+                t.value = "";
             }
 
             calculateGrades();
