@@ -6,7 +6,7 @@
     <body>
         <h1>Collierville Schools Grade Calculator</h1>
         <p>Enter your grades with new lines in between each one. Don't include extra lines.</p>
-        <p>Import: <input id="imp" placeholder="Paste text here"><button id="load" style="margin-left: 7px;">Load</button></p>
+        <p>Import: <input id="imp" placeholder="Paste text here"><button id="load" style="margin-left: 7px;">Load</button><span id="importhelp" style="margin-left: 2px; color: blue; text-decoration: underline; cursor: pointer;">?</span></p>
         <table>
             <tr>
                 <td>Homework grades (<input id="hwpercent" placeholder="5" value="5" type="number" style="width: 45px;">%):</td>
@@ -58,6 +58,8 @@
         let imp = document.getElementById("imp");
         let load = document.getElementById("load");
 
+        let importhelp = document.getElementById("importhelp");
+
         load.onclick = () => {
             let imptext = imp.value;
             let hInd = imptext.indexOf("h");
@@ -80,6 +82,10 @@
             if (imptext.length - tInd > 1) {
                 t.value = imptext.substring(tInd + 1, imptext.length).split(",").join("\n");
             }
+        }
+
+        importhelp.onclick = () => {
+            let x = prompt("Copy this text and paste it into the URL of a page bookmark to import grades directly from PowerSchool page. Click the bookmark on PowerSchool to use it.", 'javascript:let h = [];let c = [];let q = [];let t = [];document.querySelectorAll("table#scoreTable tr.ng-scope").forEach(e => {let grade = e.children[11].innerText;if (grade !== "" && !(e.children[6].children.length > 1)) {grade = Number(grade);switch (e.children[1].innerText) {case "Homework-High School":h.push(grade);break;case "Classwork-High School":c.push(grade);break;case "Quizzes-High School":q.push(grade);break;case "Test-High School":t.push(grade);break;}}});let x = prompt("Copy this text (ctrl + c or cmd + c)", `h${h.join(",")}c${c.join(",")}q${q.join(",")}t${t.join(",")}`);');
         }
     
         function valToList(val) {
