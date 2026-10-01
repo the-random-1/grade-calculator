@@ -143,10 +143,14 @@
           
             let grade = (hw[0] * hw[1] + cw[0] * cw[1] + qu[0] * qu[1] + te[0] * te[1]) / totalpercent + Number(extra.value);
             res.innerHTML = grade + "<br>" + Math.round(grade * 100) / 100 + "<br>" + Math.round(grade * 10) / 10 + "<br>" + Math.round(grade);
-            hp.innerHTML = (Math.round(100 * hw[0] * hw[1] / totalpercent) / 100) + "/" + (Math.round(10000 * hw[1] / totalpercent) / 100) + " points or " + (Math.round(100 * hw[0]) / 100) + "% from homework grades";
-            cp.innerHTML = (Math.round(100 * cw[0] * cw[1] / totalpercent) / 100) + "/" + (Math.round(10000 * cw[1] / totalpercent) / 100) + " points or " + (Math.round(100 * cw[0]) / 100) + "% from classwork grades";
-            qp.innerHTML = (Math.round(100 * qu[0] * qu[1] / totalpercent) / 100) + "/" + (Math.round(10000 * qu[1] / totalpercent) / 100) + " points or " + (Math.round(100 * qu[0]) / 100) + "% from quiz grades";
-            tp.innerHTML = (Math.round(100 * te[0] * te[1] / totalpercent) / 100) + "/" + (Math.round(10000 * te[1] / totalpercent) / 100) + " points or " + (Math.round(100 * te[0]) / 100) + "% from test grades";
+            let hgr = [(Math.round(100 * hw[0] * hw[1] / totalpercent) / 100), (Math.round(10000 * hw[1] / totalpercent) / 100), (Math.round(100 * hw[0]) / 100)];
+            let cgr = [(Math.round(100 * cw[0] * cw[1] / totalpercent) / 100), (Math.round(10000 * cw[1] / totalpercent) / 100), (Math.round(100 * cw[0]) / 100)];
+            let qgr = [(Math.round(100 * qw[0] * qw[1] / totalpercent) / 100), (Math.round(10000 * qw[1] / totalpercent) / 100), (Math.round(100 * qw[0]) / 100)];
+            let tgr = [(Math.round(100 * tw[0] * tw[1] / totalpercent) / 100), (Math.round(10000 * tw[1] / totalpercent) / 100), (Math.round(100 * tw[0]) / 100)];
+            hp.innerHTML = hgr[0] + "/" + hgr[1] + " points or " + hgr[2] + "% from homework grades<br>You're missing " + (hgr[1] - hgr[0]) + " points due to homework grades";
+            cp.innerHTML = cgr[0] + "/" + cgr[1] + " points or " + cgr[2] + "% from classwork grades<br>You're missing " + (cgr[1] - cgr[0]) + " points due to classwork grades";
+            qp.innerHTML = qgr[0] + "/" + qgr[1] + " points or " + qgr[2] + "% from quiz grades<br>You're missing " + (qgr[1] - qgr[0]) + " points due to quiz grades";
+            tp.innerHTML = tgr[0] + "/" + tgr[1] + " points or " + tgr[2] + "% from test grades<br>You're missing " + (tgr[1] - tgr[0]) + " points due to test grades";
         }
 
         calc.onclick = () => {calculateGrades();}
