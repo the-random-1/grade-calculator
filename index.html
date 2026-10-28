@@ -99,7 +99,8 @@
         }
 
         function round(n, nearest = 1) {
-            return Math.round(n / nearest) * nearest; 
+            let nearest1 = 1 / nearest;
+            return Math.round(n / nearest) / nearest1; 
         }
     
         function valToList(val) {
